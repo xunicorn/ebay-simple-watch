@@ -1,0 +1,22 @@
+/* Common CSS */
+#alerts-block { padding: 10px; }
+#grid-actions-block { display: none; }
+
+/* Sidebar CSS*/
+.widget-sidebar { /*position: fixed;*/ width: 240px; }
+.user-listings-list-container  { width: 200px; }
+.user-listings-list-search { padding: 4px 0; border-bottom: 1px solid #cccccc; }
+.user-listings-list-items { padding: 4px 0; border-bottom: 1px solid #cccccc; }
+.user-listings-list-add-new { padding: 4px 0; text-align: center; }
+.user-listings-list-add-form { display: none;  }
+.user-listings-list-add-form [type=text] { min-height: 22px !important; font-size: 12px !important;  }
+.user-listings-list-add-form [type=button] { font-size: 12px !important;  }
+
+.no-wrap { white-space: nowrap; }
+.scroll-to-top-btn { width: 200px; text-align: center; cursor: pointer; position: fixed; bottom: 20px; display: none; }
+.scroll-to-top-btn:hover { background-color: rgba(245,245,245, 0.5);}
+
+.item-image { width: 316px; }
+
+.list-delete-icon { cursor: pointer; }
+.list-view-item .rename-link { margin: 0 10px; font-size: 10px; }
