@@ -2,9 +2,9 @@
 
 /**
  * Class of arr tree
- * require array('id' => '', 'parent_id' => '', 'title' => '')
+ * require data array('id' => '', 'parent_id' => '', 'title' => '')
  *
- * For using CategoryTree class use initialize() method, than - getOneDimTree()
+ * For using CategoryTree class use initialize() method, than - getOneDimTree() (CategoryTree::initialize($data)->getOneDimTree())
  *
  * @property array $res_arr
  * @property string $delimiter

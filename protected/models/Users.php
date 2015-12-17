@@ -165,7 +165,7 @@ class Users extends BaseModel
             return $this->url_maintenance;
         }
 
-        return md5(time());
+        return md5(microtime(true));
     }
 
     /**

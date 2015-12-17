@@ -20,7 +20,7 @@
         protected $RuName;
         
         protected $COMPATIBILITY_LEVEL;
-        protected $SHIPPING_COUNTRY;
+        protected $SHIPPING_COUNTRY = 'US';
 
         protected $resp;
         protected $xml;
@@ -67,9 +67,6 @@
 
                 $this->COMPATIBILITY_LEVEL = '803';
             }
-            
-
-            $this->SHIPPING_COUNTRY = 'US';
 
             $this->initVars();
             $this->initErrors();

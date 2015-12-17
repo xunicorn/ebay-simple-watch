@@ -96,7 +96,7 @@ class UsersController extends Controller
             $model->password = CPasswordHelper::hashPassword(trim($model->password));
 
             if($model->save()) {
-                $this->setFlashSuccess('User password for <strong>' . $model->email . '</strong> successfully changed');
+                $this->setFlashSuccess('User password for <strong>' . $model->username . '</strong> successfully changed');
                 $this->redirect(array('admin'));
             }
         }
@@ -113,7 +113,7 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
-        if(Yii::app()->request->isPostRequest)
+        if(Yii::app()->request->isPostRequest and (WebUser::Id() != WebUser::ADMIN_ID)) // for demo
         {
 // we only allow deletion via POST request
             $this->loadModel($id)->delete();

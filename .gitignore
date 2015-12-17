@@ -1,1 +1,14 @@
 # Created by .ignore support plugin (hsz.mobi)
+.idea/
+assets/
+protected/runtime/
+
+ebay_global_ids.php
+ebay_site_ids.php
+parse_ebay_global_ids.php
+protected/components/ebayAPI/FetchTokenClass.php
+protected/components/ebayAPI/ConfirmIdentityClass.php
+protected/components/ebayAPI/GetMyeBayBuyingClass.php
+protected/components/ebayAPI/GetSessionIDClass.php
+protected/components/ebayAPI/GetShippingCosts.php
+protected/components/ebayAPI/PlaceOfferClass.php

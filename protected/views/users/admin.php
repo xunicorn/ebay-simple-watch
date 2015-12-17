@@ -61,6 +61,9 @@ $provider = $model->search();
                     'url'   => 'array("verifyUser", "id" => $data->id)',
                     'visible' => '!$data->email_verified',
                 ),
+                'delete' => array(
+                    'visible' => '$data->id!=WebUser::ADMIN_ID',
+                ),
             ),
         ),
     ),

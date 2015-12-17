@@ -56,7 +56,6 @@ return array(
         ),
         'MultiMailer' => array(
             'class' => 'application.extensions.MultiMailer.MultiMailer',
-            //'setFromName' => ''
         ),
         /*
 		'db'=>array(
@@ -75,8 +74,6 @@ return array(
 			'username' => 'esl',
 			'password' => 'q^m?9ZE,5dsLi#A/4R',
 			'charset'  => 'utf8',
-            //'enableParamLogging' => YII_DEBUG,
-            //'enableProfiling'    => YII_DEBUG,
 		),
 
 

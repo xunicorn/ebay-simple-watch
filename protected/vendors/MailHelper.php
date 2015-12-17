@@ -24,13 +24,15 @@ class MailHelper {
         $search = array(
             '{serviceUrl}',
             '{serviceName}',
-            '{confirmationUrl}'
+            '{confirmationUrl}',
+            PHP_EOL,
         );
 
         $replace = array(
             $serviceUrl,
             $serviceName,
             $confirmationUrl,
+            '<br/>',
         );
 
         $content = str_replace($search, $replace, $content);
@@ -38,10 +40,7 @@ class MailHelper {
         /* @var $mailer MultiMailer */
         $mailer = Yii::app()->MultiMailer;
 
-        $mailer->setFromName    = $serviceName;
-        $mailer->setFromAddress = $admin_email;
-
-        $mailer->to($user_email, $username)->subject('User registration')->body($content)->send();
+        $mailer->from($admin_email, $serviceName)->to($user_email, $username)->subject('User registration')->body($content)->send();
     }
 
     public static function sendRegisterGreetingMail($user_email) {
@@ -56,13 +55,15 @@ class MailHelper {
         $search = array(
             '{serviceUrl}',
             '{serviceName}',
-            '{email}'
+            '{email}',
+            PHP_EOL,
         );
 
         $replace = array(
             $serviceUrl,
             $serviceName,
             $user_email,
+            '<br/>',
         );
 
         $content = str_replace($search, $replace, $content);
@@ -70,10 +71,7 @@ class MailHelper {
         /* @var $mailer MultiMailer */
         $mailer = Yii::app()->MultiMailer;
 
-        $mailer->setFromName    = $serviceName;
-        $mailer->setFromAddress = $admin_email;
-
-        $mailer->to($user_email)->subject('Welcome to our service')->body($content)->send();
+        $mailer->from($admin_email, $serviceName)->to($user_email)->subject('Welcome to our service')->body($content)->send();
     }
 
     public static function sendForgotPasswordMail($user_email, $user_confirm_url) {
@@ -92,6 +90,7 @@ class MailHelper {
             '{serviceName}',
             '{email}',
             '{confirmationUrl}',
+            PHP_EOL,
         );
 
         $replace = array(
@@ -99,6 +98,7 @@ class MailHelper {
             $serviceName,
             $user_email,
             $confirmationUrl,
+            '<br/>',
         );
 
         $content = str_replace($search, $replace, $content);
@@ -106,9 +106,6 @@ class MailHelper {
         /* @var $mailer MultiMailer */
         $mailer = Yii::app()->MultiMailer;
 
-        $mailer->setFromName    = $serviceName;
-        $mailer->setFromAddress = $admin_email;
-
-        $mailer->to($user_email)->subject('Change password for account')->body($content)->send();
+        $mailer->from($admin_email, $serviceName)->to($user_email)->subject('Change password for account')->body($content)->send();
     }
 } 

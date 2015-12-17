@@ -181,6 +181,10 @@ class SearchController extends Controller
 
         $request = $this->loadModel($id);
 
+        if($request->user_id != WebUser::Id(true)) {
+            throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+        }
+
         $atributes = $request->attributes;
         $atributes['auction_type'] = SearchRequests::model()->getAuctionType($request->auction_type_id);
 
