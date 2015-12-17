@@ -67,16 +67,6 @@ return array(
 		),
         */
 
-
-        'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=esl',
-			'emulatePrepare'   => true,
-			'username' => 'esl',
-			'password' => 'q^m?9ZE,5dsLi#A/4R',
-			'charset'  => 'utf8',
-		),
-
-
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
