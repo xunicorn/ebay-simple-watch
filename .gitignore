@@ -3,9 +3,11 @@
 assets/
 protected/runtime/
 
+index-test.php
 ebay_global_ids.php
 ebay_site_ids.php
 parse_ebay_global_ids.php
+protected/config/main.php
 protected/components/ebayAPI/FetchTokenClass.php
 protected/components/ebayAPI/ConfirmIdentityClass.php
 protected/components/ebayAPI/GetMyeBayBuyingClass.php

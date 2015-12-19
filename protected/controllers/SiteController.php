@@ -231,7 +231,7 @@ class SiteController extends Controller
         $user->email_verified  = 1;
         $user->save();
 
-        MailHelper::sendRegisterGreetingMail($user->email);
+        MailHelper::sendRegisterConfirmSuccess($user->email);
 
         $this->setFlashSuccess('You successfully confirmed email. Now you can use your account');
 

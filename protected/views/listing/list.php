@@ -57,7 +57,8 @@ $this->widget('bootstrap.widgets.TbGridView',array(
                 /* @var $data EbayItem */
 
                 $details = array(
-                    'ebay_id'       => $data->itemId,
+                    'ebay_id'   => $data->itemId,
+                    'image_url' => $data->pictureUrl,
                 );
 
                 return CHtml::checkBox("EbayItems[id][]", false, array("data-id" => $data->itemId, 'class' => 'checkbox', 'value' => $data->itemId, 'data-details' => json_encode($details)));
@@ -148,6 +149,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 
         $(".delete-from-list-btn").on("click", deleteFromList);
         $(".delete-from-list-ended-btn").on("click", deleteFromListEnded);
+        $('.change-list-image-btn').on('click', changeListImage);
 
         setTimerLeft();
     }
@@ -265,6 +267,39 @@ $this->widget('bootstrap.widgets.TbGridView',array(
         trs.find('.checkbox').attr('checked', true);
 
         deleteFromList();
+
+        return false;
+    }
+
+    function changeListImage() {
+        var $chkbxs = $(".checkbox:checked");
+
+        if($chkbxs.length == 0) {
+            $.notify('Choose image for list', 'error');
+            return;
+        }
+
+        var list_id = '<?php echo $list->id; ?>';
+        var details = $chkbxs.filter(':first').data('details');
+
+        var data = { 'List': { 'image_url': details.image_url, 'id': list_id }};
+
+        $.post(
+            '<?php echo $this->createUrl('changeImageUrl'); ?>',
+            data,
+            function(resp) {
+                if(resp.success) {
+                    $.notify('List image successfully changed', 'success');
+                } else {
+                    $.notify('Could not change list image', 'error');
+                }
+            },
+            'json'
+        ).fail(function() {
+                $.notify('Error in request', 'error');
+            });
+
+        $chkbxs.attr('checked', false);
 
         return false;
     }

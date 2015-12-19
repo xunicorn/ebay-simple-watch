@@ -8,7 +8,9 @@
         <?php
             $image_src = $this->assets['img']['no-image'];
 
-            if(count($data->items) > 0) {
+            if(!empty($data->image_url)) {
+                $image_src = $data->image_url;
+            } elseif(count($data->items) > 0) {
                 $_item = $data->items[0];
 
                 $image_src = $_item->url_picture;

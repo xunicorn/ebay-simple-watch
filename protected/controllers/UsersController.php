@@ -71,6 +71,8 @@ class UsersController extends Controller
         $this->render('create',array('model'=>$model));
     }
 
+    //public function actionCreateAdmin
+
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -91,6 +93,8 @@ class UsersController extends Controller
 
         if(isset($_POST['Users']))
         {
+            throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+
             $model->attributes=$_POST['Users'];
 
             $model->password = CPasswordHelper::hashPassword(trim($model->password));
@@ -113,7 +117,7 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
-        if(Yii::app()->request->isPostRequest and (WebUser::Id() != WebUser::ADMIN_ID)) // for demo
+        if(Yii::app()->request->isPostRequest and in_array($id, array(1,2,3))) // for demo
         {
 // we only allow deletion via POST request
             $this->loadModel($id)->delete();

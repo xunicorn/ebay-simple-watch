@@ -24,15 +24,16 @@ class UserForm extends CFormModel {
     {
         return array(
 
-            array('username, password, password_verify, email', 'required', 'on' => 'create'),
+            array('username, password, password_verify, email', 'required', 'on' => 'create, create_admin'),
             array('password, password_verify', 'required', 'on' => 'change_password'),
             array('email', 'email', 'message' => 'Email is not valid'),
             array('email', 'unique', 'attributeName' => 'email', 'className' => 'Users', 'allowEmpty' => false, 'message' => 'User with such email already exists'),
-            array('username', 'match', 'pattern' => '/.*admin.*/i', 'not' => true, 'message' => 'You could not get this username'),
+            array('username', 'match', 'pattern' => '/.*admin.*/i', 'not' => true, 'message' => 'You could not get this username', 'on' => 'create'),
             array('username', 'match', 'pattern' => '/^([a-zA-Z0-9_-])+$/', 'message' => 'You could not get this username'),
             array('username', 'unique', 'attributeName' => 'username', 'className' => 'Users', 'allowEmpty' => false, 'message' => 'User with such username already exists'),
             array('password, password_verify', 'length', 'min' => 6, 'max' => 60),
-            array('password_verify', 'compare', 'compareAttribute' => 'password', 'message' => 'Password & Password Repeat must be the same'),
+            array('username, email', 'length', 'max' => 255),
+            array('password_verify', 'compare', 'compareAttribute' => 'password', 'message' => 'Password & Password Repeat must match'),
             array('verified', 'boolean'),
         );
     }
@@ -70,6 +71,7 @@ class UserForm extends CFormModel {
 
                 ListingNames::model()->getUserIgnoreList($user->id);
 
+                MailHelper::sendUserCredentials($this->username, $this->email, $this->password);
                 MailHelper::sendRegisterConfirmMail( $user->username, $user->email, $url_maintenance);
 
                 return true;
@@ -92,6 +94,8 @@ class UserForm extends CFormModel {
             $user->email_verified = intval($this->verified);
 
             if($user->save()) {
+                MailHelper::sendUserCredentials($this->username, $this->email, $this->password);
+
                 if(!$this->verified) {
                     $url_maintenance = $user->getMaintenanceUrl();
                     $user->save();

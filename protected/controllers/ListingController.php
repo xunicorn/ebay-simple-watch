@@ -26,23 +26,9 @@ class ListingController extends Controller
     public function accessRules()
     {
         return array(
-            /*
-            array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions'=>array('index','view'),
-                'users'=>array('*'),
-            ),
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('create','update'),
-                'users'=>array('@'),
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('admin','delete'),
-                'users'=>array('admin'),
-            ),
-            */
             array('allow',
                 'actions' => array('index', 'admin', 'delete', 'list',
-                    'deleteFromList', 'changeName', 'createFromUserList', 'updateFromUserList', 'doAction' ),
+                    'deleteFromList', 'changeName', 'createFromUserList', 'updateFromUserList', 'doAction', 'changeImageUrl' ),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -267,6 +253,8 @@ class ListingController extends Controller
         $this->actions_menu = array(
             array( 'label' => 'Delete From List', 'url' => '#', 'itemOptions' => array( 'class' => 'delete-from-list-btn' )),
             array( 'label' => 'Delete From List (Ended)', 'url' => '#', 'itemOptions' => array( 'class' => 'delete-from-list-ended-btn' )),
+            '',
+            array( 'label' => 'Change List image', 'url' => '#', 'itemOptions' => array( 'class' => 'change-list-image-btn' )),
         );
 
         $data = array(
@@ -275,6 +263,47 @@ class ListingController extends Controller
         );
 
         $this->render('list', $data);
+    }
+
+    public function actionChangeImageUrl() {
+        if(Yii::app()->request->isPostRequest) {
+            if(isset($_POST['List'])) {
+                $list_id = $_POST['List']['id'];
+
+                $image_url = $_POST['List']['image_url'];
+
+                $list = $this->loadModel($list_id);
+
+                if(!WebUser::isAdmin()) {
+                    if(WebUser::Id() != $list->user_id) {
+                        throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+                    }
+                }
+
+                $list->image_url = $image_url;
+
+                $result = $list->save();
+
+                if(Yii::app()->request->isAjaxRequest) {
+                    $out = array(
+                        'success' => $result,
+                    );
+
+                    echo CJSON::encode($out);
+                    Yii::app()->end();
+                } else {
+                    if($result) {
+                        $this->setFlashSuccess('List image url successfully changed');
+                    } else {
+                        $this->setFlashError('You could not change list image url');
+                    }
+
+                    $this->redirect(array('index'));
+                }
+            }
+        }
+
+        throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
     }
 
     /**
@@ -300,12 +329,15 @@ class ListingController extends Controller
      */
     public function actionIndex(){
 
-        $_condition = !WebUser::isAdmin() ? 'user_id=' . WebUser::Id() : '';
+        $_condition  = !WebUser::isAdmin() ? 'user_id=' . WebUser::Id() : '';
+
+        $_condition .= ' user.id IS NOT NULL';
 
         $dataProvider=new CActiveDataProvider('ListingNames', array(
             'criteria'    => array(
                 'order' => 'user_id, ignored DESC',
                 'condition' => $_condition,
+                'join'  => 'LEFT JOIN users user ON user.id=t.user_id',
             ),
         ));
 

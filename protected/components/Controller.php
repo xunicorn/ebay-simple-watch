@@ -27,7 +27,6 @@ class Controller extends CController
     public $listings     = array();
 
     public $add_to_list_btn = 0;
-    public $delete_from_list_btn = 0;
 
     public $url_referrer;
 

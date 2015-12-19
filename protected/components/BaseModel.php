@@ -37,6 +37,10 @@ abstract class BaseModel extends CActiveRecord {
         return $command->execute();
     }
 
+    public function getRecordById($id) {
+        return static::model()->findByPk($id);
+    }
+
     /**
      * @param $attributes
      * @return int|void
