@@ -19,3 +19,16 @@ Installing script will run after DB creating (install.php). It has form for admi
 Admin ID ALWAYS == 1
 
 Your service is ready for use.
+
+#Demo
+You can test demo on this <a href="http://esw.fallss.net/index.php">link</a>
+
+Users credentials:
+
+1. admin:admin
+ 
+2. user_1:123456
+
+3. test_u2:123456
+ 
+Its credentials could not be changed, but you can create your own user
