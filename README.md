@@ -9,5 +9,13 @@ This project is written in Yii 1. Therefore you have to change DB connection in 
 
 Also you have to create DB. DB file - /protected/data/ebay.sql
 
+chmod -R 777 for dirs: /assets, /install, /protected/runtime
+
+chown -R www-data:www-data /install
+
 #Using
-After installation you have to create admin user. After admin creation - your service is ready for work
+Installing script will run after DB creating (install.php). It has form for admin user creation.
+
+Admin ID ALWAYS == 1
+
+Your service is ready for use.
