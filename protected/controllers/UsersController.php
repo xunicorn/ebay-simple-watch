@@ -93,8 +93,6 @@ class UsersController extends Controller
 
         if(isset($_POST['Users']))
         {
-            throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-
             $model->attributes=$_POST['Users'];
 
             $model->password = CPasswordHelper::hashPassword(trim($model->password));
